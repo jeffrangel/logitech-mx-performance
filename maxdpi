@@ -1,0 +1,10 @@
+#!/bin/bash
+#Find the right hidraw device number
+for dev in /sys/class/hidraw/hidraw*; do  
+  if grep "Logitech USB Receiver" "$dev/device/uevent" >& /dev/null; then
+    dev=/dev/`basename $dev`
+    echo "Logitech USB Receiver: $dev"
+    sudo mxdpi 14 "$dev"
+  fi
+done
+
